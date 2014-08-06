@@ -3,6 +3,16 @@
 var magazyka = {
 
 
+    addLocalStorage: function(param){
+        var self = this;
+        if (param == 1){
+        localStorage.ListItems = JSON.stringify(self.ListOfItems);
+      
+        } else{
+
+            self.ListOfItems = localStorage.ListItems ? JSON.parse(localStorage.ListItems) : [];
+        }
+    },
 
     ListOfItems: [
 
@@ -62,7 +72,7 @@ var magazyka = {
 
                 // self.removeNode(param);
 
-
+                 self.addLocalStorage(1);
                // self.createBasket();
                 break;
 
@@ -305,7 +315,10 @@ var magazyka = {
         trTotal.appendChild(tdTotal);
         trTotal.appendChild(trReg);
         tableTotal.appendChild(trTotal);
-
+        // чтение
+        //self.ListOfItems = localStorage.ListItems ? JSON.parse(localStorage.ListItems) : [];
+        self.addLocalStorage(2);
+        //console.log(localStorage.ListItems);
 
         for (var i = 0; i < this.ListOfItems.length; i++) {
 
@@ -357,13 +370,13 @@ var magazyka = {
                 console.log('Нажали Изменить колличество под индексом', this.getAttribute('list-index'));
                 // console.log('Вы кликнули по товару с именем: ' + event.target.innerHTML + " и ценой: " + event.target.getAttribute('price'));
                 self.ChangeBasket(this.getAttribute('list-index'));
-            }, false)
+            }, false);
 
             $buttonDel.addEventListener('click', function () {
                 console.log('Нажали Удалить под индексом', this.getAttribute('list-index'));
                 // console.log('Вы кликнули по товару с именем: ' + event.target.innerHTML + " и ценой: " + event.target.getAttribute('price'));
                 self.DelBasket(this.getAttribute('list-index'));
-            }, false)
+            }, false);
 
 
             $tdButton.appendChild($buttonDel);
@@ -390,6 +403,7 @@ var magazyka = {
         //self.inBasket();
         document.getElementById("basketTT").appendChild($documentFragment);
         document.getElementById("basketTT").style.display = 'block';
+
         //document.body.appendChild($documentFragment);
     },
 
